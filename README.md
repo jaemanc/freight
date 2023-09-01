@@ -8,7 +8,12 @@
 
 ---
 
-## 운행 일지 화면 
+## 운행 일지 설계
+
+![image](https://github.com/jaemanc/freight/assets/104718153/4068f7fa-1b32-49ca-a9d5-0ab1bb1d1a0b)
 
 
 ---
+
+
+
