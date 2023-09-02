@@ -14,18 +14,20 @@ java 11 / spring boot 2.7.16 / SQLite 3 / queryDsl / Docker / Oracle Cloud / git
 
 ---
 
-## 운행 일지 설계
+## 운행 일지 mockup
 
 <img width="95%" alt="image" src="https://github.com/jaemanc/freight/assets/104718153/667e92c9-fffe-4124-8452-8f1b77068203">
 
 ### 일지 목록 등 참고용 이미지들
-<img width="40%" alt="image" src=img.png>
-<img width="40%" alt="image" src="https://github.com/jaemanc/freight/assets/104718153/4f1095c7-4f17-475f-87cc-cae4c3996fcf">
-<img width="40%" alt="image" src="https://github.com/jaemanc/freight/assets/104718153/3707c90c-8c7e-4dee-9809-af2fbb044751">
-<img width="40%" alt="image" src="https://github.com/jaemanc/freight/assets/104718153/82634545-00ca-4db1-aaa4-07d679f6d511">
-<img width="40%" alt="image" src="https://github.com/jaemanc/freight/assets/104718153/07ea16b6-7ece-4f53-a7f1-0aff5d4b58e9">
+<p align="center">
+
+<img algin="center" width="25%" alt="image" src="https://github.com/jaemanc/freight/assets/104718153/4f1095c7-4f17-475f-87cc-cae4c3996fcf">
+<img algin="center" width="25%" alt="image" src="https://github.com/jaemanc/freight/assets/104718153/3707c90c-8c7e-4dee-9809-af2fbb044751">
+<img algin="center" width="25%" alt="image" src="https://github.com/jaemanc/freight/assets/104718153/07ea16b6-7ece-4f53-a7f1-0aff5d4b58e9">
+<img algin="center" width="20%" alt="image" src="https://github.com/jaemanc/freight/assets/104718153/82634545-00ca-4db1-aaa4-07d679f6d511">
 
 
+</p>
 ---
 
 ## __To do__
