@@ -10,7 +10,7 @@
 
 ## 운행 일지 설계
 
-![image](https://github.com/jaemanc/freight/assets/104718153/6799e10e-ca81-4cd7-aba9-2cc98c480fa1)
+<img width="1009" alt="image" src="https://github.com/jaemanc/freight/assets/104718153/667e92c9-fffe-4124-8452-8f1b77068203">
 
 
 
