@@ -10,7 +10,7 @@ java 11 / spring boot 2.7.16 / SQLite 3 / queryDsl / Docker / Oracle Cloud / git
 
 ## 테이블
 
-<img width="95%" src=https://github.com/jaemanc/freight/assets/104718153/a3f0ca17-fafb-407f-987d-b6ec2ea04179 alt="image">
+<img width="95%" alt="image" src="https://github.com/jaemanc/freight/assets/104718153/88cce074-3407-4034-b14e-aae0e7f75ae3">
 
 ---
 
