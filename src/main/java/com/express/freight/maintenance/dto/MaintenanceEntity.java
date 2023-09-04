@@ -1,5 +1,6 @@
 package com.express.freight.maintenance.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
@@ -53,6 +54,7 @@ public class MaintenanceEntity {
 
     @CreatedDate
     @Column(name="created_at")
+    @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
     private Date createdAt;
 
     public MaintenanceEntity(Long id, Long userId, Date maintenanceDate, Long price, String maintenanceShop, String maintenanceHistory, String extra, Date createdAt) {
