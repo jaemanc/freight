@@ -7,26 +7,26 @@ import org.springframework.web.servlet.config.annotation.*;
 @EnableWebMvc
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-    @Bean
-    public Interceptor interceptor() {
-        return new Interceptor();
+
+    public Interceptor interceptor;
+
+    public WebConfig(Interceptor interceptor){
+        this.interceptor = interceptor;
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(interceptor())
+        registry.addInterceptor(interceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(
-                        "**",
-                        "/v2/api-docs/**",
-                        "/swagger-resources/**",
-                        "/swagger-ui/**",
-                        "/swagger-ui.html/**",
-                        "/webjars/**"
-                        ,"/user/registration"
-                        ,"/user/non-member-registration"
-                ).excludePathPatterns("http://localhost:3000/v1/api/api-docs")
-        ;
+                        "/api/v1/user/registration"
+                        ,"/api/v1/user/non-member-registration"
+                        ,"/v2/api-docs/**"
+                        ,"/swagger-resources/**"
+                        ,"/swagger-ui/**"
+                        ,"/webjars/**"
+                        ,"/v3/api-docs"
+                );
 
         WebMvcConfigurer.super.addInterceptors(registry);
 

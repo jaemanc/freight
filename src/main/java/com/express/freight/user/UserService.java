@@ -39,7 +39,7 @@ public class UserService {
          */
         String uuid = UUID.randomUUID().toString();
         UserEntity userEntity = UserEntity.builder()
-                            .user_id(uuid)
+                            .userId(uuid)
                             .name("geust_"+uuid)
                             .contact("contact_"+uuid)
                             .email("geust@gmail.com")
@@ -52,7 +52,7 @@ public class UserService {
 
     public boolean isUser(String userId) throws Exception {
 
-        return userRepository.existsUserEntityByUser_id(userId);
+        return userRepository.existsUserEntityByUserId(userId);
     }
 
 

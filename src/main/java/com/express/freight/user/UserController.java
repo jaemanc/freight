@@ -4,6 +4,8 @@ import com.express.freight.user.dto.UserDto;
 import com.express.freight.util.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/v1/user")
 @Tag(name="User", description = "유저 API")
 public class UserController {
+
+    private final Logger log_error = LogManager.getLogger("com.applog");
 
     private final UserService userService;
     public UserController(UserService userService){
@@ -48,7 +52,7 @@ public class UserController {
         }
     }
 
-    @Tag(name="user")
+    @Tag(name="User")
     @Operation(summary = "Non-membership registration", description = "비회원 로그인")
     @PostMapping("/non-member-registration")
     public ResponseEntity<UserDto> nonMemberLogin(){
