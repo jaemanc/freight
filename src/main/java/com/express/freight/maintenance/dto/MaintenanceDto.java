@@ -24,7 +24,7 @@ public class MaintenanceDto {
     private Long id;
 
     @ApiModelProperty(example = "사용자 아이디")
-    private Long userId;
+    private String userId;
 
     @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
     @ApiModelProperty(example = "2023:01:01 01:11:11")
@@ -45,8 +45,11 @@ public class MaintenanceDto {
     @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
     private Date createdAt;
 
+    @ApiModelProperty(example = "N")
+    private Character delYn;
+
     @QueryProjection
-    public MaintenanceDto(Long id, Long userId, Date maintenanceDate, Long price, String maintenanceShop, String maintenanceHistory, String extra, Date createdAt) {
+    public MaintenanceDto(Long id, String userId, Date maintenanceDate, Long price, String maintenanceShop, String maintenanceHistory, String extra, Date createdAt, Character delYn) {
         this.id = id;
         this.userId = userId;
         this.maintenanceDate = maintenanceDate;
@@ -55,5 +58,6 @@ public class MaintenanceDto {
         this.maintenanceHistory = maintenanceHistory;
         this.extra = extra;
         this.createdAt = createdAt;
+        this.delYn = delYn;
     }
 }

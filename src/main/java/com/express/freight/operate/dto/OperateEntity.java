@@ -30,7 +30,7 @@ public class OperateEntity {
 
     @Column(name = "user_id")
     @ApiModelProperty(example = "사용자 아이디")
-    private Long userId;
+    private String userId;
 
     @Column(name = "loading_date")
     @ApiModelProperty(example = "상차 날짜")
@@ -72,7 +72,10 @@ public class OperateEntity {
     @Column(name="created_at")
     private Date createdAt;
 
-    public OperateEntity(Long id, Long userId, Date loadingDate, String loadingPlace, Date unloadingDate, String unloadingPlace, Long loadingRatio, Long transportationCosts, Date transportationDate, String transportationType, Long unitCost, Date createdAt) {
+    @ApiModelProperty(example = "N")
+    private Character delYn;
+
+    public OperateEntity(Long id, String userId, Date loadingDate, String loadingPlace, Date unloadingDate, String unloadingPlace, Long loadingRatio, Long transportationCosts, Date transportationDate, String transportationType, Long unitCost, Date createdAt, Character delYn) {
         this.id = id;
         this.userId = userId;
         this.loadingDate = loadingDate;
@@ -85,5 +88,6 @@ public class OperateEntity {
         this.transportationType = transportationType;
         this.unitCost = unitCost;
         this.createdAt = createdAt;
+        this.delYn = delYn;
     }
 }

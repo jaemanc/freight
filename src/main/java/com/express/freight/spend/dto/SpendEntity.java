@@ -29,7 +29,7 @@ public class SpendEntity {
 
     @Column(name="user_id")
     @ApiModelProperty(example = "사용자 아이디")
-    private Long userId;
+    private String userId;
 
     @Column(name="payment_date")
     @ApiModelProperty(example = "지출 날짜")
@@ -51,7 +51,9 @@ public class SpendEntity {
     @Column(name="created_at")
     private Date createdAt;
 
-    public SpendEntity(Long id, Long userId, Date paymentDate, Long price, String paymentDetail, String extra, Date createdAt) {
+    @ApiModelProperty(example = "N")
+    private Character delYn;
+    public SpendEntity(Long id, String userId, Date paymentDate, Long price, String paymentDetail, String extra, Date createdAt, Character delyn) {
         this.id = id;
         this.userId = userId;
         this.paymentDate = paymentDate;
@@ -59,5 +61,6 @@ public class SpendEntity {
         this.paymentDetail = paymentDetail;
         this.extra = extra;
         this.createdAt = createdAt;
+        this.delYn = delyn;
     }
 }

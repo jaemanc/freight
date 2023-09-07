@@ -30,7 +30,7 @@ public class MaintenanceEntity {
 
     @Column(name="user_id")
     @ApiModelProperty(example = "사용자 아이디")
-    private Long userId;
+    private String userId;
 
     @Column(name="maintenance_date")
     @ApiModelProperty(example = "정비 날짜")
@@ -57,7 +57,10 @@ public class MaintenanceEntity {
     @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
     private Date createdAt;
 
-    public MaintenanceEntity(Long id, Long userId, Date maintenanceDate, Long price, String maintenanceShop, String maintenanceHistory, String extra, Date createdAt) {
+    @ApiModelProperty(example = "N")
+    private Character delYn;
+
+    public MaintenanceEntity(Long id, String userId, Date maintenanceDate, Long price, String maintenanceShop, String maintenanceHistory, String extra, Date createdAt, Character delYn) {
         this.id = id;
         this.userId = userId;
         this.maintenanceDate = maintenanceDate;
@@ -66,5 +69,6 @@ public class MaintenanceEntity {
         this.maintenanceHistory = maintenanceHistory;
         this.extra = extra;
         this.createdAt = createdAt;
+        this.delYn = delYn;
     }
 }
