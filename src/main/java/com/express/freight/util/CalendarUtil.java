@@ -1,8 +1,11 @@
 package com.express.freight.util;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Calendar;
 import java.util.Date;
 
+@Component
 public class CalendarUtil {
 
     public int getMonth(Date date){

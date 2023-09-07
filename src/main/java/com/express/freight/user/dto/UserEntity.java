@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -14,18 +15,27 @@ import java.util.Date;
 
 @Entity
 @Getter
-@Builder
 @NoArgsConstructor
 @Table(name="TB_USER")
 @DynamicUpdate
 @DynamicInsert
 @EntityListeners(AuditingEntityListener.class)
-public class UserEntity {
+public class UserEntity implements Persistable<String> {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id")
+    @Column(name="user_id")
     @ApiModelProperty(example = "사용자 아이디")
-    private String user_id;
+    private String userId;
+
+    // select - insert 방지
+    @Override
+    public String getId() {
+        return userId;
+    }
+    @Override
+    public boolean isNew() {
+        return true;
+    }
 
     @Column(name="name")
     @ApiModelProperty(example = "이름")
@@ -47,12 +57,12 @@ public class UserEntity {
     @Column(name="created_at")
     private Date createdAt;
 
-    public UserEntity(String user_id, String name, String contact, String email, String extra, Date createdAt) {
-        this.user_id = user_id;
+    @Builder
+    public UserEntity(String userId, String name, String contact, String email, String extra) {
+        this.userId = userId;
         this.name = name;
         this.contact = contact;
         this.email = email;
         this.extra = extra;
-        this.createdAt = createdAt;
     }
 }

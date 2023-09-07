@@ -17,7 +17,7 @@ import java.util.Date;
 @Getter
 @Builder
 @NoArgsConstructor
-@Table(name="TB_USER")
+@Table(name="TB_OPERATE")
 @DynamicUpdate
 @DynamicInsert
 @EntityListeners(AuditingEntityListener.class)
