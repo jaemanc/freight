@@ -48,6 +48,14 @@ java 11 / spring boot 2.7.16 / SQLite 3 / queryDsl / Docker / Oracle Cloud / git
 2. log backup - rolling + 1 month
 3. db backup - sqlite3 + backup??
 4. ERROR - email alert
-5. 사용자 등록 프로세스?
-   1. 특정 사용자만 사용 가능한??
+
+* 로그인 관련 - 최대한 리소스 적게 사용
+  * 회원
+    * ID / 이름 / 연락처 / 이메일(필수X)  <- JWT 값 사용.
+  * 비회원
+    * 최초 접속 시, 유저 아이디 UUID 생성하여 ID 값으로 사용 <- 어플 삭제 혹은, JWT 잃어버릴 경우 복구 불가.
+  * 인가
+    * 인터셉터 - JWT + secret_key / user_id 값으로 검증
+
+
 

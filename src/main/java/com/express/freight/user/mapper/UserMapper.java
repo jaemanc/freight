@@ -1,4 +1,14 @@
 package com.express.freight.user.mapper;
 
-public interface UserMapper {
+import com.express.freight.user.dto.UserDto;
+import com.express.freight.user.dto.UserEntity;
+import com.express.freight.util.EntityMapper;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
+
+@Mapper
+public interface UserMapper extends EntityMapper<UserDto, UserEntity> {
+
+    UserMapper mapper = Mappers.getMapper(UserMapper.class);
+
 }

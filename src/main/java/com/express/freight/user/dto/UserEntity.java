@@ -25,7 +25,7 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")
     @ApiModelProperty(example = "사용자 아이디")
-    private Long user_id;
+    private String user_id;
 
     @Column(name="name")
     @ApiModelProperty(example = "이름")
@@ -47,7 +47,7 @@ public class UserEntity {
     @Column(name="created_at")
     private Date createdAt;
 
-    public UserEntity(Long user_id, String name, String contact, String email, String extra, Date createdAt) {
+    public UserEntity(String user_id, String name, String contact, String email, String extra, Date createdAt) {
         this.user_id = user_id;
         this.name = name;
         this.contact = contact;

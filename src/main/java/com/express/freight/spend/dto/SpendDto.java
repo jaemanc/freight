@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class SpendDto {
     private Long id;
 
-    private Long userId;
+    private String userId;
 
     @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
     private Date paymentDate;
@@ -31,8 +31,10 @@ public class SpendDto {
     @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
     private Date createdAt;
 
+    @ApiModelProperty(example = "N")
+    private Character delYn;
     @QueryProjection
-    public SpendDto(Long id, Long userId, Date paymentDate, Long price, String paymentDetail, String extra, Date createdAt) {
+    public SpendDto(Long id, String userId, Date paymentDate, Long price, String paymentDetail, String extra, Date createdAt, Character delYn) {
         this.id = id;
         this.userId = userId;
         this.paymentDate = paymentDate;
@@ -40,5 +42,6 @@ public class SpendDto {
         this.paymentDetail = paymentDetail;
         this.extra = extra;
         this.createdAt = createdAt;
+        this.delYn = delYn;
     }
 }

@@ -17,7 +17,7 @@ import java.util.Date;
 public class RefuelDto {
     private Long id;
 
-    private Long userId;
+    private String userId;
 
     @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
     private Date refuelingDate;
@@ -29,13 +29,16 @@ public class RefuelDto {
     @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
     private Date createdAt;
 
+    @ApiModelProperty(example = "N")
+    private Character delYn;
     @QueryProjection
-    public RefuelDto(Long id, Long userId, Date refuelingDate, Long price, String extra, Date createdAt) {
+    public RefuelDto(Long id, String userId, Date refuelingDate, Long price, String extra, Date createdAt, Character delYn) {
         this.id = id;
         this.userId = userId;
         this.refuelingDate = refuelingDate;
         this.price = price;
         this.extra = extra;
         this.createdAt = createdAt;
+        this.delYn = delYn;
     }
 }

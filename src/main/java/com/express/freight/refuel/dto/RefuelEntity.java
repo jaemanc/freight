@@ -29,7 +29,7 @@ public class RefuelEntity {
 
     @Column(name = "user_id")
     @ApiModelProperty(example = "사용자 아이디")
-    private Long userId;
+    private String userId;
 
     @Column(name = "refueling_date")
     @ApiModelProperty(example = "주유 날짜")
@@ -47,12 +47,16 @@ public class RefuelEntity {
     @Column(name="created_at")
     private Date createdAt;
 
-    public RefuelEntity(Long id, Long userId, Date refuelingDate, Long price, String extra, Date createdAt) {
+    @ApiModelProperty(example = "N")
+    private Character delYn;
+
+    public RefuelEntity(Long id, String userId, Date refuelingDate, Long price, String extra, Date createdAt, Character delYn) {
         this.id = id;
         this.userId = userId;
         this.refuelingDate = refuelingDate;
         this.price = price;
         this.extra = extra;
         this.createdAt = createdAt;
+        this.delYn = delYn;
     }
 }
