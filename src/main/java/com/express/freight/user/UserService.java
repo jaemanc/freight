@@ -45,7 +45,7 @@ public class UserService {
                             .email("geust@gmail.com")
                             .build();
 
-        userEntity = userRepository.save(userEntity);
+        userRepository.save(userEntity);
 
         return UserMapper.mapper.toDto(userEntity);
     }

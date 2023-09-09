@@ -8,11 +8,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -27,8 +29,9 @@ public class MaintenanceDto {
     private String userId;
 
     @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
-    @ApiModelProperty(example = "2023:01:01 01:11:11")
-    private Date maintenanceDate;
+    @ApiModelProperty(example = "2023-01-01")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate maintenanceDate;
 
     @ApiModelProperty(example = "금액")
     private Long price;
@@ -49,7 +52,7 @@ public class MaintenanceDto {
     private Character delYn;
 
     @QueryProjection
-    public MaintenanceDto(Long id, String userId, Date maintenanceDate, Long price, String maintenanceShop, String maintenanceHistory, String extra, Date createdAt, Character delYn) {
+    public MaintenanceDto(Long id, String userId, LocalDate maintenanceDate, Long price, String maintenanceShop, String maintenanceHistory, String extra, Date createdAt, Character delYn) {
         this.id = id;
         this.userId = userId;
         this.maintenanceDate = maintenanceDate;

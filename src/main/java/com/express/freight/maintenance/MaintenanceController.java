@@ -9,9 +9,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.time.LocalDate;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -62,15 +65,18 @@ public class MaintenanceController {
     @Operation(summary = "select tb_maintenance list", description = "정비 내역 목록 조회")
     @GetMapping("")
     public ResponseEntity<List<MaintenanceDto>> getMaintenance(
-            @RequestHeader("Authorization") String jwt,
             @RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "10") int size,
-            @RequestParam Date date
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
+            HttpServletRequest request
     ) {
+
+        String authorizationHeader = request.getHeader("Authorization");
 
         List<MaintenanceDto> maintenanceList = null;
         try{
-            String userId = JWTUtil.getUserId(jwt);
+
+            String userId = JWTUtil.getUserId(authorizationHeader);
             Pageable pageable = PageRequest.of(page, size);
 
             maintenanceList = maintenanceService.getMaintenanaceList(userId, pageable, date);

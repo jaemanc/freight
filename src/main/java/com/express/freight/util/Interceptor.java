@@ -23,7 +23,7 @@ public class Interceptor implements HandlerInterceptor {
 
         String jwt = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-        System.out.println(" jwt value : " + jwt);
+        System.out.println("PREHANDLE : " + jwt);
 
         if (StringUtils.isEmpty(jwt)) {
             System.out.println("The value of jwt in the request header is null... ");
@@ -31,14 +31,10 @@ public class Interceptor implements HandlerInterceptor {
             throw new IllegalAccessException(" jwt value cannot be null!!!");
         }
 
-        String userId = jwtUtil.getUserId(jwt);
-
-        System.out.println(" header jwt : " + jwt + " user id : " + userId);
-
-        // UserDto userDto = userService.getUser(userId);
+        String userId = JWTUtil.getUserId(jwt);
 
         if (!userService.isUser(userId)) {
-            System.out.println(" User Not found!!!  ");
+            System.out.println(" User Not found!!! USER_ID : " + userId);
             return false;
         }
 
