@@ -19,10 +19,10 @@ public class JWTUtil {
     private static Long tokenValidTime = 10*365*24*60*60*1000L;
     private static String secretKey = "son_of_iksan";
     public String createToken(UserDto userDto) {
-        Claims claims = Jwts.claims().setSubject(userDto.getUser_id()); // JWT payload 에 저장되는 정보단위
+        Claims claims = Jwts.claims().setSubject(userDto.getUserId()); // JWT payload 에 저장되는 정보단위
         // claims.put("roles", roles); // 정보는 key / value 쌍으로 저장된다.
 
-        claims.put("user_id", userDto.getUser_id());
+        claims.put("user_id", userDto.getUserId());
         claims.put("name",userDto.getName());
         claims.put("contact",userDto.getContact());
 

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -15,7 +15,7 @@ import java.util.Date;
 @Builder
 public class UserDto {
 
-    private String user_id;
+    private String userId;
 
     private String name;
 
@@ -26,12 +26,12 @@ public class UserDto {
     private String extra;
 
     @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @Builder
     @QueryProjection
-    public UserDto(String user_id, String name, String contact, String email, String extra, Date createdAt) {
-        this.user_id = user_id;
+    public UserDto(String userId, String name, String contact, String email, String extra, LocalDate createdAt) {
+        this.userId = userId;
         this.name = name;
         this.contact = contact;
         this.email = email;

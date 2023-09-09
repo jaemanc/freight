@@ -9,8 +9,10 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -34,7 +36,8 @@ public class MaintenanceEntity {
 
     @Column(name="maintenance_date")
     @ApiModelProperty(example = "정비 날짜")
-    private Date maintenanceDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate maintenanceDate;
 
     @Column(name="price")
     @ApiModelProperty(example = "금액")
@@ -60,7 +63,7 @@ public class MaintenanceEntity {
     @ApiModelProperty(example = "N")
     private Character delYn;
 
-    public MaintenanceEntity(Long id, String userId, Date maintenanceDate, Long price, String maintenanceShop, String maintenanceHistory, String extra, Date createdAt, Character delYn) {
+    public MaintenanceEntity(Long id, String userId, LocalDate maintenanceDate, Long price, String maintenanceShop, String maintenanceHistory, String extra, Date createdAt, Character delYn) {
         this.id = id;
         this.userId = userId;
         this.maintenanceDate = maintenanceDate;
