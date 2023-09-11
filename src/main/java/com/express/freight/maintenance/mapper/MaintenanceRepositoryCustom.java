@@ -1,9 +1,8 @@
 package com.express.freight.maintenance.mapper;
 
+import com.express.freight.common.dto.PagingDto;
 import com.express.freight.maintenance.dto.MaintenanceDto;
-import com.express.freight.maintenance.dto.MaintenanceEntity;
 import com.express.freight.maintenance.dto.QMaintenanceEntity;
-import com.express.freight.util.CalendarUtil;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -14,23 +13,16 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
 
-import static com.express.freight.maintenance.dto.QMaintenanceEntity.maintenanceEntity;
-
 @Repository
 @RequiredArgsConstructor
 public class MaintenanceRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
-    private final CalendarUtil calendarUtil;
 
     private final QMaintenanceEntity qMaintenanceEntity = QMaintenanceEntity.maintenanceEntity;
 
 
-    public List<MaintenanceDto> getMaintenanceList(String userId, Pageable pageable, LocalDate date) {
-
-//        int year = calendarUtil.getYear(date);
-//        int month = calendarUtil.getMonth(date);
-
+    public PagingDto<MaintenanceDto> getMaintenanceList(String userId, Pageable pageable, LocalDate date) {
         YearMonth yearMonth = YearMonth.from(date);
         LocalDate firstDayOfMonth = yearMonth.atDay(1);
         LocalDate lastDayOfMonth = yearMonth.atEndOfMonth();
@@ -52,12 +44,21 @@ public class MaintenanceRepositoryCustom {
                     qMaintenanceEntity.maintenanceDate.between(firstDayOfMonth,lastDayOfMonth)
                             .and(qMaintenanceEntity.userId.eq(userId))
                 )
+                .orderBy(qMaintenanceEntity.maintenanceDate.asc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .orderBy(qMaintenanceEntity.createdAt.desc())
                 .fetch();
 
-        return maintenanceDtoList;
+        Long totalCount = queryFactory
+                .select(qMaintenanceEntity.count())
+                .from(qMaintenanceEntity)
+                .where(
+                        qMaintenanceEntity.userId.eq(userId)
+                        .and(qMaintenanceEntity.maintenanceDate.between(firstDayOfMonth,lastDayOfMonth))
+                        )
+                .fetchOne();
+
+        return new PagingDto<>(maintenanceDtoList, totalCount);
     }
 
 }

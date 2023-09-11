@@ -1,4 +1,4 @@
-package com.express.freight.util;
+package com.express.freight.common;
 
 import org.mapstruct.BeanMapping;
 import org.mapstruct.MappingTarget;

@@ -21,6 +21,9 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns(
                         "/api/v1/user/registration"
                         ,"/api/v1/user/non-member-registration"
+                        ,"/api/v1/user/**"
+                        ,"/v1/user/**"
+                        ,"/user/**"
                         ,"/v2/api-docs/**"
                         ,"/swagger-resources/**"
                         ,"/swagger-ui/**"
@@ -29,7 +32,6 @@ public class WebConfig implements WebMvcConfigurer {
                 );
 
         WebMvcConfigurer.super.addInterceptors(registry);
-
     }
 
     @Override

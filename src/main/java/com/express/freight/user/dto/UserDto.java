@@ -25,7 +25,7 @@ public class UserDto {
 
     private String extra;
 
-    @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonFormat(pattern = "yyyy:MM:dd", timezone = "Asia/Seoul")
     private LocalDate createdAt;
 
     @Builder
