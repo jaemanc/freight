@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,7 +24,7 @@ import java.util.Date;
 @DynamicInsert
 @DynamicUpdate
 @EntityListeners(AuditingEntityListener.class)
-public class MaintenanceEntity {
+public class MaintenanceEntity implements Persistable<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")
@@ -33,6 +34,16 @@ public class MaintenanceEntity {
     @Column(name="user_id")
     @ApiModelProperty(example = "사용자 아이디")
     private String userId;
+
+    // select - insert 방지
+    @Override
+    public Long getId() {
+        return id;
+    }
+    @Override
+    public boolean isNew() {
+        return true;
+    }
 
     @Column(name="maintenance_date")
     @ApiModelProperty(example = "정비 날짜")
@@ -61,6 +72,7 @@ public class MaintenanceEntity {
     private Date createdAt;
 
     @ApiModelProperty(example = "N")
+    @Column(name="del_yn")
     private Character delYn;
 
     public MaintenanceEntity(Long id, String userId, LocalDate maintenanceDate, Long price, String maintenanceShop, String maintenanceHistory, String extra, Date createdAt, Character delYn) {
@@ -74,4 +86,23 @@ public class MaintenanceEntity {
         this.createdAt = createdAt;
         this.delYn = delYn;
     }
+
+    public void updateMaintenance(MaintenanceDto maintenanceDto) {
+        if (maintenanceDto.getMaintenanceDate() != null) {
+            this.maintenanceDate = maintenanceDto.getMaintenanceDate();
+        }
+        if (maintenanceDto.getPrice() != null) {
+            this.price = maintenanceDto.getPrice();
+        }
+        if (maintenanceDto.getMaintenanceShop() != null) {
+            this.maintenanceShop = maintenanceDto.getMaintenanceShop();
+        }
+        if (maintenanceDto.getMaintenanceHistory() != null) {
+            this.maintenanceHistory = maintenanceDto.getMaintenanceHistory();
+        }
+        if (maintenanceDto.getExtra() != null) {
+            this.extra = maintenanceDto.getExtra();
+        }
+    }
+
 }

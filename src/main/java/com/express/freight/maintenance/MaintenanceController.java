@@ -1,5 +1,6 @@
 package com.express.freight.maintenance;
 
+import com.express.freight.common.dto.PagingDto;
 import com.express.freight.maintenance.dto.MaintenanceDto;
 import com.express.freight.user.UserService;
 import com.express.freight.util.JWTUtil;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/maintenance")
-@Tag(name="MainTenance", description = "정비 API")
+@Tag(name="Maintenance", description = "정비 API")
 public class MaintenanceController {
 
     private final MaintenanceService maintenanceService;
@@ -30,26 +32,16 @@ public class MaintenanceController {
         this.userService = userService;
     }
 
-    @Tag(name="MainTenance")
-    @Operation(summary = "operation summary test", description = "operation description test !!")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "OK!!"),
-            @ApiResponse(responseCode = "400", description = "BAD!!"),
-            @ApiResponse(responseCode = "404", description = "NOT FOUND!!"),
-            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR"),
-    })
-    @GetMapping("/hello")
-    public ResponseEntity<String> tempapi() {
-        return ResponseEntity.ok(" hello world? ");
-    }
-
-    @Tag(name="MainTenance")
+    @Tag(name="Maintenance")
     @Operation(summary = "insert maintenance info tb_maintenance", description = "정비 내역 등록")
     @PostMapping("")
     public ResponseEntity<MaintenanceDto> postMaintenance(
-            @RequestBody MaintenanceDto maintenanceDto
+            @RequestBody MaintenanceDto maintenanceDto,
+            HttpServletRequest request
     ){
         try{
+            maintenanceDto.setUserId(JWTUtil.getUserId(request.getHeader("Authorization")));
+
             maintenanceDto = maintenanceService.postMaintenance(maintenanceDto);
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,44 +53,94 @@ public class MaintenanceController {
 
     // 조회 + 총 운반비
     // param ( 페이징 , 카운트,
-    @Tag(name="MainTenance")
+    @Tag(name="Maintenance")
     @Operation(summary = "select tb_maintenance list", description = "정비 내역 목록 조회")
     @GetMapping("")
-    public ResponseEntity<List<MaintenanceDto>> getMaintenance(
-            @RequestParam(required = false, defaultValue = "0") int page,
+    public ResponseEntity<PagingDto<MaintenanceDto>> getMaintenance(
+            @RequestParam(required = false, defaultValue = "1") int page,
             @RequestParam(required = false, defaultValue = "10") int size,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
             HttpServletRequest request
     ) {
-
-        String authorizationHeader = request.getHeader("Authorization");
-
-        List<MaintenanceDto> maintenanceList = null;
         try{
 
-            String userId = JWTUtil.getUserId(authorizationHeader);
-            Pageable pageable = PageRequest.of(page, size);
+            String userId = JWTUtil.getUserId(request.getHeader("Authorization"));
+            Pageable pageable = PageRequest.of(page-1, size);
 
-            maintenanceList = maintenanceService.getMaintenanaceList(userId, pageable, date);
+            PagingDto<MaintenanceDto> maintenanceList = maintenanceService.getMaintenanceList(userId, pageable, date);
 
+            return ResponseEntity.ok(maintenanceList);
         } catch (Exception e) {
             e.printStackTrace();
-
+            return ResponseEntity.status(500).build();
         }
-
-        return ResponseEntity.ok(maintenanceList);
     }
 
 
-
-
-
     // 상세
+    @Tag(name="Maintenance")
+    @Operation(summary = "select tb_maintenance detail", description = "정비 내역 상세 조회")
+    @GetMapping("/{id}")
+    public ResponseEntity<MaintenanceDto> getMaintenanceDetail(
+            @RequestParam(required = true) Long id,
+            HttpServletRequest request
+    ) {
+        try{
+
+            String userId = JWTUtil.getUserId(request.getHeader("Authorization"));
+
+            MaintenanceDto maintenanceDto = maintenanceService.getMaintenanceDetail(userId,id);
+            if (ObjectUtils.isEmpty(maintenanceDto))
+                return ResponseEntity.notFound().build();
+
+            return ResponseEntity.ok(maintenanceDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).build();
+        }
+
+    }
+
 
     // 수정
+    @Tag(name="Maintenance")
+    @Operation(summary = "update tb_maintenance detail", description = "정비 내역 수정")
+    @PutMapping("")
+    public ResponseEntity<MaintenanceDto> putMaintenance(
+            @RequestBody(required = true) MaintenanceDto maintenanceDto
+    ) {
+        try{
+            MaintenanceDto result = maintenanceService.putMaintenanace(maintenanceDto);
+            if (ObjectUtils.isEmpty(result)) {
+                return  ResponseEntity.notFound().build();
+            }
+
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).build();
+        }
+    }
+
 
     // 삭제
+    @Tag(name="Maintenance")
+    @Operation(summary = "delete tb_maintenance detail", description = "정비 내역 삭제")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<MaintenanceDto> deleteMaintenance(
+            @RequestParam(required = true) Long id
+    ) {
 
+        try{
+            maintenanceService.deleteMaintenance(id);
+
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).build();
+
+        }
+    }
 
 
 

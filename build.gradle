@@ -48,6 +48,9 @@ dependencies {
     // local test sqlite 3
     implementation 'org.xerial:sqlite-jdbc:3.36.0.3'
 
+    // postgresql
+    implementation 'org.postgresql:postgresql'
+
     // swagger ui 3
     implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
     implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'

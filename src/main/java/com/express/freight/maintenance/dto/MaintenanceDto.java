@@ -28,7 +28,7 @@ public class MaintenanceDto {
     @ApiModelProperty(example = "사용자 아이디")
     private String userId;
 
-    @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @ApiModelProperty(example = "2023-01-01")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate maintenanceDate;
