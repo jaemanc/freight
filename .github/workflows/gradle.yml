@@ -33,6 +33,8 @@ jobs:
         working-directory: ./
 
   login-docker-hub:
+    runs-on: ubuntu-latest
+    steps:
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
@@ -40,26 +42,32 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
   build-docker-image:
-      - name: build docker image
-        run: |
-          git reset --hard origin/main
-          git pull origin main
-          docker build -t ${{secrets.DOCKER_USERNAME}}/{{secrets.DOCKER_REPO}} .
+    - runs-on: ubuntu-latest
+      steps:
+        - name: build docker image
+          run: |
+            git reset --hard origin/main
+            git pull origin main
+            docker build -t ${{secrets.DOCKER_USERNAME}}/{{secrets.DOCKER_REPO}} .
 
   push-docker-image:
-      - name: Push Docker image
-        run: |
-          docker push ${{secrets.DOCKER_USERNAME}}/{{secrets.DOCKER_REPO}} .
+    - runs-on: ubuntu-latest
+      steps:
+        - name: Push Docker image
+          run: |
+            docker push ${{secrets.DOCKER_USERNAME}}/{{secrets.DOCKER_REPO}} .
 
   deploy-server:
-      - name: SSH into Oracle Cloud Server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          port: ${{ secrets.SERVER_SSH_PORT }}
-          script: |
-            docker pull ${{secrets.DOCKER_USERNAME}}/{{secrets.DOCKER_REPO}}
-            docker run -d --name freight-for-centos8 -p 3000:3000 ${{secrets.DOCKER_USERNAME}}/{{secrets.DOCKER_REPO}} 
+    - runs-on: ubuntu-latest
+      steps:
+        - name: SSH into Oracle Cloud Server
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.SERVER_HOST }}
+            username: ${{ secrets.SERVER_USERNAME }}
+            password: ${{ secrets.SERVER_PASSWORD }}
+            port: ${{ secrets.SERVER_SSH_PORT }}
+            script: |
+              docker pull ${{secrets.DOCKER_USERNAME}}/{{secrets.DOCKER_REPO}}
+              docker run -d --name freight-for-centos8 -p 3000:3000 ${{secrets.DOCKER_USERNAME}}/{{secrets.DOCKER_REPO}} 
 
