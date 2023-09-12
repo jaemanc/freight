@@ -48,6 +48,7 @@ jobs:
     steps:
       - name: build docker image
         run: |
+          cd /app/freight
           git reset --hard origin/main
           git pull origin main
           docker build -t ${{secrets.DOCKER_USERNAME}}/{{secrets.DOCKER_REPO}} .
