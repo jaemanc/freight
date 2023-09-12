@@ -42,7 +42,8 @@ public class MaintenanceRepositoryCustom {
                 .from(qMaintenanceEntity)
                 .where(
                     qMaintenanceEntity.maintenanceDate.between(firstDayOfMonth,lastDayOfMonth)
-                            .and(qMaintenanceEntity.userId.eq(userId))
+                    .and(qMaintenanceEntity.userId.eq(userId))
+                    .and(qMaintenanceEntity.delYn.eq('N'))
                 )
                 .orderBy(qMaintenanceEntity.maintenanceDate.asc())
                 .offset(pageable.getOffset())
@@ -55,6 +56,7 @@ public class MaintenanceRepositoryCustom {
                 .where(
                         qMaintenanceEntity.userId.eq(userId)
                         .and(qMaintenanceEntity.maintenanceDate.between(firstDayOfMonth,lastDayOfMonth))
+                        .and(qMaintenanceEntity.delYn.eq('N'))
                         )
                 .fetchOne();
 
