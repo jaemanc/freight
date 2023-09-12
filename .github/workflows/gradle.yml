@@ -17,7 +17,23 @@ permissions:
   contents: read
 
 jobs:
+  git-pull:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH into Oracle Cloud Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: ${{ secrets.SERVER_SSH_PORT }}
+          script: |
+            cd /app/freight/
+            git reset --hard origin/main
+            git pull origin main
+
   build:
+    needs: git-pull
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -48,9 +64,6 @@ jobs:
     steps:
       - name: build docker image
         run: |
-          cd /app/freight
-          git reset --hard origin/main
-          git pull origin main
           docker build -t ${{secrets.DOCKER_USERNAME}}/{{secrets.DOCKER_REPO}} .
 
   push-docker-image:
