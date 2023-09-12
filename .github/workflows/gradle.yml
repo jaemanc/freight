@@ -19,39 +19,39 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '11'
-
       - name: Build with Gradle
         run: |
           ./gradlew build
         working-directory: ./
 
+  login-docker-hub:
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Docker image
+  build-docker-image:
+      - name: build docker image
         run: |
-          cd /app/freight
           git reset --hard origin/main
           git pull origin main
           docker build -t ${{secrets.DOCKER_USERNAME}}/{{secrets.DOCKER_REPO}} .
 
+  push-docker-image:
       - name: Push Docker image
         run: |
           docker push ${{secrets.DOCKER_USERNAME}}/{{secrets.DOCKER_REPO}} .
 
+  deploy-server:
       - name: SSH into Oracle Cloud Server
         uses: appleboy/ssh-action@master
         with:
