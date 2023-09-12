@@ -56,7 +56,7 @@ public class MaintenanceController {
     @Tag(name="Maintenance")
     @Operation(summary = "select tb_maintenance list", description = "정비 내역 목록 조회")
     @GetMapping("")
-    public ResponseEntity<PagingDto<MaintenanceDto>> getMaintenance(
+    public ResponseEntity<PagingDto<MaintenanceDto>> getMaintenanceList(
             @RequestParam(required = false, defaultValue = "1") int page,
             @RequestParam(required = false, defaultValue = "10") int size,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,

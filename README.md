@@ -57,5 +57,7 @@ java 11 / spring boot 2.7.16 / SQLite 3 / queryDsl / Docker / Oracle Cloud / git
   * 인가
     * 인터셉터 - JWT + secret_key / user_id 값으로 검증
 
+* 삭제 API
+  * 하드 말고 소프트 딜리트로 처리 하도록 수정 필요 ( 정비 카테고리 )
 
 

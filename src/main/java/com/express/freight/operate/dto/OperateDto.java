@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.Column;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -17,15 +18,15 @@ import java.util.Date;
 public class OperateDto {
     private Long id;
 
-    private Long userId;
+    private String userId;
 
     @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
-    private Date loadingDate;
+    private LocalDate loadingDate;
 
     private String loadingPlace;
 
     @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
-    private Date unloadingDate;
+    private LocalDate unloadingDate;
 
     private String unloadingPlace;
 
@@ -34,7 +35,7 @@ public class OperateDto {
     private Long transportationCosts;
 
     @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
-    private Date transportationDate;
+    private LocalDate transportationDate;
 
     private String transportationType;
 
@@ -43,8 +44,10 @@ public class OperateDto {
     @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
     private Date createdAt;
 
+    private Character delYn;
+
     @QueryProjection
-    public OperateDto(Long id, Long userId, Date loadingDate, String loadingPlace, Date unloadingDate, String unloadingPlace, Long loadingRatio, Long transportationCosts, Date transportationDate, String transportationType, Long unitCost, Date createdAt) {
+    public OperateDto(Long id, String userId, LocalDate loadingDate, String loadingPlace, LocalDate unloadingDate, String unloadingPlace, Long loadingRatio, Long transportationCosts, LocalDate transportationDate, String transportationType, Long unitCost, Date createdAt, Character delYn) {
         this.id = id;
         this.userId = userId;
         this.loadingDate = loadingDate;
@@ -57,5 +60,6 @@ public class OperateDto {
         this.transportationType = transportationType;
         this.unitCost = unitCost;
         this.createdAt = createdAt;
+        this.delYn = delYn;
     }
 }
