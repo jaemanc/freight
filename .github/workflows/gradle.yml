@@ -27,7 +27,7 @@ jobs:
     needs: login-docker-hub
     runs-on: ubuntu-latest
     steps:
-      - name: build docker image
+      - name: gradle build jar
         uses: appleboy/ssh-action@v0.1.4
         with:
           host: ${{secrets.SERVER_HOST}}
@@ -44,7 +44,7 @@ jobs:
     needs : build
     runs-on: ubuntu-latest
     steps:
-      - name: deploy docker image
+      - name: deploy and run docker container
         uses: appleboy/ssh-action@v0.1.4
         with:
           host: ${{secrets.SERVER_HOST}}
