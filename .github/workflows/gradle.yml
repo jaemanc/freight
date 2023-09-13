@@ -27,7 +27,7 @@ jobs:
     needs: login-docker-hub
     runs-on: ubuntu-latest
     steps:
-      - name: gradle build jar
+      - name: git pull
         uses: appleboy/ssh-action@v0.1.4
         with:
           host: ${{secrets.SERVER_HOST}}
@@ -38,7 +38,11 @@ jobs:
             cd /app/freight
             sudo git reset --hard origin/main
             sudo git pull origin main
-            sudo ./gradlew build
+            chmod +x ./gradlew
+      - name: build with gradle
+        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+        with:
+          arguments: build
 
   deploy:
     needs : build
