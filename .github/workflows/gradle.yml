@@ -26,7 +26,6 @@ jobs:
           java-version: '11'
       - name: Build with Gradle
         run: |
-          cd /app/freight
           ./gradlew build
 
   login-docker-hub:
