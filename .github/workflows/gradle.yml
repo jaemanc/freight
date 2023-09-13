@@ -32,27 +32,23 @@ jobs:
           gradle-version: 8.2.1
           arguments: build
 
-  login-docker-hub:
+  docker:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Login to Docker Hub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-
-  push-docker:
-    needs: login-docker-hub
-    runs-on: ubuntu-latest
-    steps:
       - name: build and push to docker hub
-        run: | 
+        run: |
           docker build -t ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} .
           docker push ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}}
+        working-directory: ./app
 
   deploy:
-    needs : push-docker
+    needs : docker
     runs-on: ubuntu-latest
     steps:
       - name: deploy and run docker container
