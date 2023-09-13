@@ -48,7 +48,7 @@ jobs:
     steps:
       - name: build docker image
         run: |
-          docker build -t ${{secrets.DOCKER_USERNAME}}/{{secrets.DOCKER_REPO}} .
+          docker build -t ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} .
 
   push-docker-image:
     needs: build-docker-image
@@ -56,7 +56,7 @@ jobs:
     steps:
       - name: Push Docker image
         run: |
-          docker push ${{secrets.DOCKER_USERNAME}}/{{secrets.DOCKER_REPO}} .
+          docker push ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} .
 
   deploy-server:
     needs: push-docker-image
@@ -71,6 +71,6 @@ jobs:
           port: ${{ secrets.SERVER_SSH_PORT }}
           script: |
             cd /app/freight/
-            docker pull ${{secrets.DOCKER_USERNAME}}/{{secrets.DOCKER_REPO}}
-            docker run -d --name freight-for-centos8 -p 3000:3000 ${{secrets.DOCKER_USERNAME}}/{{secrets.DOCKER_REPO}} 
+            docker pull ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}}
+            docker run -d --name freight-for-centos8 -p 3000:3000 ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} 
 
