@@ -62,7 +62,7 @@ jobs:
           key: ${{secrets.SERVER_PASSWORD}}
           port: ${{ secrets.SERVER_SSH_PORT }}
           script: |
-            if [ "$(docker ps -q)" ]; then
+            if [ "$(docker ps -al)" ]; then
             sudo docker rm -f $(docker ps -qa)
             fi
             sudo docker pull ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}}
