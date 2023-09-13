@@ -42,6 +42,15 @@ jobs:
           gradle-version: 8.2.1
           arguments: build
 
+  docker-push:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: docker build and push
+        uses: actions/checkout@v4
+        run: |
+          sudo docker build -t ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} .
+          sudo docker push ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}}
 
   deploy:
     needs : build
@@ -58,8 +67,7 @@ jobs:
             if [ "$(docker ps -q)" ]; then
               sudo docker rm -f $(docker ps -qa)
             fi
-            sudo docker build -t ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} .
-            sudo docker push ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}}
+    
             sudo docker pull ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}}
             sudo docker run -d --name freight_latest -p 3000:3000 ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}}
 #            sudo docker system prune -f
