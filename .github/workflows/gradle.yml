@@ -33,6 +33,7 @@ jobs:
           arguments: build
 
   login-docker-hub:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Login to Docker Hub
@@ -40,6 +41,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
+  push-docker:
+    needs: login-docker-hub
+    runs-on: ubuntu-latest
+    steps:
       - name: build and push to docker hub
         uses: actions/checkout@v3
         run: | 
@@ -47,7 +53,7 @@ jobs:
           docker push ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}}
 
   deploy:
-    needs : build
+    needs : push-docker
     runs-on: ubuntu-latest
     steps:
       - name: deploy and run docker container
