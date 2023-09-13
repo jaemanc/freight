@@ -73,7 +73,7 @@ dependencies {
 
     // mysql
     implementation 'com.mysql:mysql-connector-j'
-    implementation 'mysql:mysql-connector-java'
+//    implementation 'mysql:mysql-connector-java'
 
     annotationProcessor(
             "jakarta.persistence:jakarta.persistence-api",
