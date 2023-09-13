@@ -43,7 +43,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: build and push to docker hub
         run: |
-          cd /app
+          cd /home/runner/work
           docker build -t ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} .
           docker push ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}}
 
