@@ -58,7 +58,7 @@ jobs:
             git reset --hard origin/main
             git pull origin main
             sudo docker build -t ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} .
-            sudo docker push ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} .
+            sudo docker push ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}}
             if [ "$(docker ps -q)" ]; then
                 sudo docker rm -f $(docker ps -qa)
             fi
