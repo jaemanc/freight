@@ -62,5 +62,5 @@ jobs:
             if [ "$(docker ps -q)" ]; then
                 sudo docker rm -f $(docker ps -qa)
             fi
-            docker run -d --name freight-for-centos8 -p 3000:3000 ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} 
+            sudo docker run -d --name freight-for-centos8 -p 3000:3000 ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} 
 
