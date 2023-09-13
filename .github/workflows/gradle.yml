@@ -18,7 +18,6 @@ permissions:
 
 jobs:
   build:
-    needs: git-pull
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
