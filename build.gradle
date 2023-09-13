@@ -71,6 +71,7 @@ dependencies {
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
 
+    // mysql
     implementation 'com.mysql:mysql-connector-j'
 
     annotationProcessor(
