@@ -1,5 +1,5 @@
 FROM openjdk:11
 WORKDIR /app
-ARG JAR_FILE=/build/libs/freight-0.1.jar
-COPY $JAR_FILE /freight-0.1.jar
-ENTRYPOINT ["java","-jar","/freight-0.1.jar"]
+ARG JAR_FILE=/build/libs/*.jar
+COPY $JAR_FILE /app.jar
+ENTRYPOINT ["java","-jar","app.jar"]
