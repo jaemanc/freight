@@ -73,11 +73,10 @@ public class OperateController {
 
     @Tag(name="Operate")
     @Operation(summary = "get operate info from tb_operate", description = "운행 내역 상세 조회")
-    @PostMapping("")
+    @GetMapping("/{id}")
     public ResponseEntity<OperateDto> getOperateDetail(
-            @RequestParam(required = true) Long id,
-            HttpServletRequest request
-    ){
+            HttpServletRequest request,
+            @PathVariable Long id){
         try{
             String userId = JWTUtil.getUserId(request.getHeader("Authorization"));
             OperateDto operateDto = operateService.getOperateDetail(id);
@@ -90,7 +89,7 @@ public class OperateController {
 
     @Tag(name="Operate")
     @Operation(summary = "patch operate info tb_operate", description = "운행 내역 수정")
-    @PutMapping("/{id}")
+    @PutMapping("")
     public ResponseEntity<OperateDto> putOperate(
             @RequestBody OperateDto operateDto
     ){
@@ -107,8 +106,7 @@ public class OperateController {
     @Operation(summary = "delete operate info tb_operate", description = "운행 내역 삭제")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteOperateDetail(
-            @RequestParam(required = true) Long id
-    ){
+            @PathVariable Long id){
         try{
             operateService.deleteOperate(id);
             return ResponseEntity.ok().build();
