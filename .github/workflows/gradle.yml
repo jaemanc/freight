@@ -34,7 +34,7 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       - name: init with Gradle
-        uses: gradle/gradle-build-action@v2
+      - uses: gradle/gradle-build-action@v2
       - run: gradle init
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
@@ -47,17 +47,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: docker build and push
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
         run: |
           sudo docker build -t ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} .
           sudo docker push ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}}
 
   deploy:
-    needs : build
+    needs : docker-push
     runs-on: ubuntu-latest
     steps:
       - name: deploy and run docker container
-        uses: appleboy/ssh-action@v0.1.4
+      - uses: appleboy/ssh-action@v0.1.4
         with:
           host: ${{secrets.SERVER_HOST}}
           username: opc
@@ -67,7 +67,6 @@ jobs:
             if [ "$(docker ps -q)" ]; then
               sudo docker rm -f $(docker ps -qa)
             fi
-    
             sudo docker pull ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}}
             sudo docker run -d --name freight_latest -p 3000:3000 ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}}
 #            sudo docker system prune -f
