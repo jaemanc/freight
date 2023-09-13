@@ -49,9 +49,10 @@ jobs:
       - name: build docker image
         uses: appleboy/ssh-action@v0.1.4
         with:
-          host: ${{secrets.HOST}}
+          host: ${{secrets.SERVER_HOST}}
           username: opc
-          key: ${{secrets.SSH_KEY}}
+          key: ${{secrets.SERVER_PASSWORD}}
+          port: ${{ secrets.SERVER_SSH_PORT }}
           script: |
             cd /app/freight
             git reset --hard origin/main
@@ -59,3 +60,4 @@ jobs:
             sudo docker build -t ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} .
             sudo docker push ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} .
             docker run -d --name freight-for-centos8 -p 3000:3000 ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} 
+
