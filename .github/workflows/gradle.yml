@@ -48,7 +48,7 @@ jobs:
     steps:
       - name: build docker image
         run: |
-          docker build -t ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} .
+          docker build --file /app/freight/Dockerfile -t ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} .
 
   push-docker-image:
     needs: build-docker-image
