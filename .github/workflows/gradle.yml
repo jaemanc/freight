@@ -38,7 +38,7 @@ jobs:
             cd /app/freight
             sudo git reset --hard origin/main
             sudo git pull origin main
-            chmod +x ./gradlew
+            sudo chmod +x ./gradlew
       - name: build with gradle
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
