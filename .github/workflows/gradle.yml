@@ -48,7 +48,7 @@ jobs:
     steps:
       - name: build docker image
         run: |
-          docker build --file /app/Dockerfile -t ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} .
+          sudo docker build -t ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} .
 
   push-docker-image:
     needs: build-docker-image
@@ -56,7 +56,7 @@ jobs:
     steps:
       - name: Push Docker image
         run: |
-          docker push ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} .
+          sudo docker push ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} .
 
   deploy-server:
     needs: push-docker-image
