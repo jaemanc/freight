@@ -48,7 +48,7 @@ jobs:
     steps:
       - name: docker build and push
       - uses: actions/checkout@v3
-        run: |
+      - run: |
           sudo docker build -t ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}} .
           sudo docker push ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}}
 
