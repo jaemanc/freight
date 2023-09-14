@@ -11,6 +11,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -37,6 +38,7 @@ public class OperateEntity {
 
     @Column(name = "loading_date")
     @ApiModelProperty(example = "상차 날짜")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate loadingDate;
 
     @Column(name = "loading_place")
@@ -45,6 +47,7 @@ public class OperateEntity {
 
     @Column(name = "unloading_date")
     @ApiModelProperty(example = "하차 날짜")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate unloadingDate;
 
     @Column(name = "unloading_place")
@@ -61,6 +64,7 @@ public class OperateEntity {
 
     @Column(name = "transportation_date")
     @ApiModelProperty(example = "운반 날짜")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate transportationDate;
 
     @Column(name = "transportation_type")

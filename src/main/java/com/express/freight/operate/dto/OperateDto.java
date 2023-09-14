@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import java.time.LocalDate;
@@ -20,12 +21,16 @@ public class OperateDto {
 
     private String userId;
 
-    @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    @ApiModelProperty(example = "2023-01-01")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate loadingDate;
 
     private String loadingPlace;
 
-    @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    @ApiModelProperty(example = "2023-01-01")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate unloadingDate;
 
     private String unloadingPlace;
@@ -34,14 +39,16 @@ public class OperateDto {
 
     private Long transportationCosts;
 
-    @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    @ApiModelProperty(example = "2023-01-01")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate transportationDate;
 
     private String transportationType;
 
     private Long unitCost;
 
-    @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private Date createdAt;
 
     private Character delYn;
