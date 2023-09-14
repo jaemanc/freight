@@ -73,7 +73,8 @@ dependencies {
 
     // mysql
     implementation 'com.mysql:mysql-connector-j'
-//    implementation 'mysql:mysql-connector-java'
+
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
 
     annotationProcessor(
             "jakarta.persistence:jakarta.persistence-api",
