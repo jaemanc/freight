@@ -77,7 +77,6 @@ public class OperateController {
             HttpServletRequest request,
             @PathVariable Long id){
         try{
-            String userId = JWTUtil.getUserId(request.getHeader("Authorization"));
             OperateDto operateDto = operateService.getOperateDetail(id);
             return ResponseEntity.ok(operateDto);
         } catch (Exception e) {
