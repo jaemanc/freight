@@ -74,7 +74,6 @@ public class OperateController {
     @Operation(summary = "get operate info from tb_operate", description = "운행 내역 상세 조회")
     @GetMapping("/{id}")
     public ResponseEntity<OperateDto> getOperateDetail(
-            HttpServletRequest request,
             @PathVariable Long id){
         try{
             OperateDto operateDto = operateService.getOperateDetail(id);
