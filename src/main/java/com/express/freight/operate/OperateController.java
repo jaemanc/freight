@@ -1,7 +1,6 @@
 package com.express.freight.operate;
 
 import com.express.freight.common.dto.PagingDto;
-import com.express.freight.maintenance.dto.MaintenanceDto;
 import com.express.freight.operate.dto.OperateDto;
 import com.express.freight.user.UserService;
 import com.express.freight.util.JWTUtil;
@@ -49,7 +48,7 @@ public class OperateController {
     }
 
     @Tag(name="Operate")
-    @Operation(summary = "insert operate historys info from tb_operate", description = "운행 내역 목록 조회")
+    @Operation(summary = "get operate history info from tb_operate", description = "운행 내역 목록 조회")
     @GetMapping("")
     public ResponseEntity<PagingDto<OperateDto>> getOperateList(
             @RequestParam(required = false, defaultValue = "1") int page,

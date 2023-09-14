@@ -10,6 +10,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -33,7 +34,7 @@ public class RefuelEntity {
 
     @Column(name = "refueling_date")
     @ApiModelProperty(example = "주유 날짜")
-    private Date refuelingDate;
+    private LocalDate refuelingDate;
 
     @Column(name = "price")
     @ApiModelProperty(example = "금액")
@@ -50,7 +51,7 @@ public class RefuelEntity {
     @ApiModelProperty(example = "N")
     private Character delYn;
 
-    public RefuelEntity(Long id, String userId, Date refuelingDate, Long price, String extra, Date createdAt, Character delYn) {
+    public RefuelEntity(Long id, String userId, LocalDate refuelingDate, Long price, String extra, Date createdAt, Character delYn) {
         this.id = id;
         this.userId = userId;
         this.refuelingDate = refuelingDate;
