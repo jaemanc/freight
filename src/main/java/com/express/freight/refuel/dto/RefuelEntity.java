@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
@@ -49,6 +50,7 @@ public class RefuelEntity {
     private Date createdAt;
 
     @ApiModelProperty(example = "N")
+    @Setter
     private Character delYn;
 
     public RefuelEntity(Long id, String userId, LocalDate refuelingDate, Long price, String extra, Date createdAt, Character delYn) {
@@ -60,4 +62,23 @@ public class RefuelEntity {
         this.createdAt = createdAt;
         this.delYn = delYn;
     }
+
+    public void updateRefueling(RefuelDto refuelDto) {
+        if (refuelDto.getRefuelingDate() != null) {
+            this.refuelingDate = refuelDto.getRefuelingDate();
+        }
+        if (refuelDto.getPrice() != null) {
+            this.price = refuelDto.getPrice();
+        }
+        if (refuelDto.getExtra() != null) {
+            this.extra = refuelDto.getExtra();
+        }
+
+        if (refuelDto.getDelYn() != null) {
+            this.delYn = refuelDto.getDelYn();
+        }
+
+    }
+
+
 }

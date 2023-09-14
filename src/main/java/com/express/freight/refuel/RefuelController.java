@@ -1,11 +1,12 @@
 package com.express.freight.refuel;
 
 import com.express.freight.common.dto.PagingDto;
-import com.express.freight.operate.dto.OperateDto;
 import com.express.freight.refuel.dto.RefuelDto;
 import com.express.freight.util.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,19 +29,15 @@ public class RefuelController {
     @Operation(summary = "insert refuel info tb_refueling", description = "주유 내역 등록")
     @PostMapping("")
     public ResponseEntity<RefuelDto> postRefueling(
-            @RequestBody RefuelDto refuelDto,
-            HttpServletRequest request
+            @RequestBody RefuelDto refuelDto
     ){
         try{
-            //Todo
-
-
+            refuelDto = refuelService.postRefuel(refuelDto);
+            return ResponseEntity.ok(refuelDto);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().build();
         }
-
-        return ResponseEntity.ok(refuelDto);
     }
 
     @Tag(name="Refuel")
@@ -53,15 +50,15 @@ public class RefuelController {
             HttpServletRequest request
     ){
         try{
-            //Todo
-
-
+            String userId = JWTUtil.getUserId(request.getHeader("Authorization"));
+            Pageable pageable = PageRequest.of(page-1, size);
+            PagingDto<RefuelDto> pagingDto = refuelService.getRefuelList(userId, pageable, date);
+            return ResponseEntity.ok(pagingDto);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().build();
         }
 
-        return ResponseEntity.ok(null);
     }
 
     @Tag(name="Refuel")
@@ -71,33 +68,44 @@ public class RefuelController {
             @PathVariable Long id
     ){
         try{
-            //Todo
-
-
+            RefuelDto refuelDto = refuelService.getRefuelingDetail(id);
+            return ResponseEntity.ok(refuelDto);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().build();
         }
 
-        return ResponseEntity.ok(null);
     }
 
     @Tag(name="Refuel")
-    @Operation(summary = "delete refuel info detail from tb_refueling", description = "주유 내역 상세 조회")
+    @Operation(summary = "patch refuel tb_refueling", description = "주유 내역 수정")
+    @PutMapping("")
+    public ResponseEntity<RefuelDto> putRefueling(
+            @RequestBody RefuelDto refuelDto
+    ){
+        try{
+            refuelDto = refuelService.putRefueling(refuelDto);
+            return ResponseEntity.ok(refuelDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    @Tag(name="Refuel")
+    @Operation(summary = "delete refuel tb_refueling", description = "주유 내역 삭제")
     @DeleteMapping("/{id}")
     public ResponseEntity<RefuelDto> deleteRefueling(
             @PathVariable Long id
     ){
         try{
-            //Todo
+            refuelService.deleteRefueling(id);
 
-
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().build();
         }
-
-        return ResponseEntity.ok(null);
     }
 
 }
