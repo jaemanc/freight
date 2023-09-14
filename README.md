@@ -15,6 +15,14 @@ java 11 / spring boot 2.7.16 / SQLite 3 / queryDsl / Docker / Oracle Cloud / git
 
 ---
 
+## API 
+
+###swagger UI : http://158.180.82.177:3000/swagger-ui/index.html#/
+
+<img width="70%" alt="image" src="https://github.com/jaemanc/freight/assets/104718153/cca319fb-fb70-4c3e-9aa0-c682c6639700">
+
+
+
 ## 운행 일지 mockup
 
 <img width="95%" alt="image" src="https://github.com/jaemanc/freight/assets/104718153/667e92c9-fffe-4124-8452-8f1b77068203">
