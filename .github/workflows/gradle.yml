@@ -47,7 +47,7 @@ jobs:
             sudo docker rm -f $(docker ps -qa)
             fi
             sudo docker pull ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}}
-            sudo docker run -d --name freight_latest -p 127.0.0.1:3000:3000 ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}}
+            sudo docker run -d --name freight_latest -p 3000:3000 ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}}
 
 
 #  deploy:
