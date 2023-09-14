@@ -48,7 +48,7 @@ public class OperateRepositoryCustom {
                         .and(qOperateEntity.loadingDate.between(firstDayOfMonth, lastDayOfMonth))
                         .and(qOperateEntity.userId.eq(userId))
                 )
-                .orderBy(qOperateEntity.loadingDate.asc())
+                .orderBy(qOperateEntity.loadingDate.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();

@@ -45,7 +45,7 @@ public class MaintenanceRepositoryCustom {
                     .and(qMaintenanceEntity.userId.eq(userId))
                     .and(qMaintenanceEntity.delYn.eq('N'))
                 )
-                .orderBy(qMaintenanceEntity.maintenanceDate.asc())
+                .orderBy(qMaintenanceEntity.maintenanceDate.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
