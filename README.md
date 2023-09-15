@@ -63,5 +63,6 @@ java 11 / spring boot 2.7.16 / SQLite 3 / queryDsl / Docker / Oracle Cloud / git
 
 ### 기획
 
+* 조회 페이지 버튼 아이콘으로 대체 가능한 경우 대체 할 것.
 * 상세 페이지 / 수정 / 삭제 페이지 기획 설계 필요.
 * 참고 UI : https://github.com/ArizArmeidi/FlutterWeather
