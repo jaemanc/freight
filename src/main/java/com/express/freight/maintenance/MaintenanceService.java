@@ -8,6 +8,7 @@ import com.express.freight.maintenance.mapper.MaintenanceRepository;
 import com.express.freight.maintenance.mapper.MaintenanceRepositoryCustom;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -26,6 +27,10 @@ public class MaintenanceService {
     }
 
     public MaintenanceDto postMaintenance(MaintenanceDto maintenanceDto){
+
+        // 최초 등록에 의함.
+        if (ObjectUtils.isEmpty(maintenanceDto.getDelYn()))
+            maintenanceDto.setDelYn('N');
 
         MaintenanceEntity maintenanceEntity = MaintenanceMapper.mapper.toEntity(maintenanceDto);
 

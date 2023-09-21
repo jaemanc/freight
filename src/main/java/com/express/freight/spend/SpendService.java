@@ -10,6 +10,7 @@ import com.express.freight.spend.mapper.SpendRepository;
 import com.express.freight.spend.mapper.SpendRepositoryCustom;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -27,6 +28,10 @@ public class SpendService {
     }
 
     public SpendDto postSpend(SpendDto spendDto) {
+
+        // 최초 등록에 의함.
+        if (ObjectUtils.isEmpty(spendDto.getDelYn()))
+            spendDto.setDelYn('N');
 
         SpendEntity entity = SpendMapper.mapper.toEntity(spendDto);
         entity = spendRepository.save(entity);

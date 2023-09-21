@@ -10,6 +10,7 @@ import com.express.freight.operate.mapper.OperateRepository;
 import com.express.freight.operate.mapper.OperateRepositoryCustom;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -26,6 +27,10 @@ public class OperateService {
     }
 
     public OperateDto postOperate(OperateDto operateDto) {
+
+        // 최초 등록에 의함.
+        if (ObjectUtils.isEmpty(operateDto.getDelYn()))
+            operateDto.setDelYn('N');
 
         OperateEntity entity = OperateMapper.mapper.toEntity(operateDto);
         entity = operateRepository.save(entity);
