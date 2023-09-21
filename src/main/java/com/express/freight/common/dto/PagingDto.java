@@ -16,5 +16,12 @@ public class PagingDto<T> {
 
     private List<T> data;
     private Long totalCount;
+    private Long totalMount;
+
+    public PagingDto(List<T> data, Long totalCount) {
+        this.data = data;
+        this.totalCount = totalCount;
+    }
+
 
 }

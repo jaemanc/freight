@@ -3,7 +3,9 @@ package com.express.freight.operate.mapper;
 import com.express.freight.common.dto.PagingDto;
 import com.express.freight.operate.dto.OperateDto;
 import com.express.freight.operate.dto.QOperateEntity;
+import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -63,7 +65,18 @@ public class OperateRepositoryCustom {
                 )
                 .fetchOne();
 
-        return new PagingDto<>(operateDtoList, totalCount);
+        Long totalMount = queryFactory
+                .select(qOperateEntity.transportationCosts.sum())
+                .from (qOperateEntity)
+                .where(
+                        qOperateEntity.userId.eq(userId)
+                        .and(qOperateEntity.loadingDate.between(firstDayOfMonth,lastDayOfMonth))
+                        .and(qOperateEntity.delYn.eq('N'))
+                )
+                .fetchOne();
+
+
+        return new PagingDto<>(operateDtoList, totalCount, totalMount);
     }
 
 }
