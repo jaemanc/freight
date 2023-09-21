@@ -10,6 +10,7 @@ import com.express.freight.refuel.mapper.RefuelRepository;
 import com.express.freight.refuel.mapper.RefuelRepositoryCustom;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -26,6 +27,11 @@ public class RefuelService {
     }
 
     public RefuelDto postRefuel(RefuelDto refuelDto) {
+
+        // 최초 등록에 의함.
+        if (ObjectUtils.isEmpty(refuelDto.getDelYn()))
+            refuelDto.setDelYn('N');
+
         RefuelEntity refuelEntity = RefuelMapper.mapper.toEntity(refuelDto);
         refuelEntity = refuelRepository.save(refuelEntity);
         return RefuelMapper.mapper.toDto(refuelEntity);
