@@ -3,6 +3,7 @@ package com.express.freight.maintenance.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.querydsl.core.annotations.QueryProjection;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,33 +17,34 @@ import java.util.Date;
 @NoArgsConstructor
 public class MaintenanceDto {
 
-    @ApiModelProperty(example = "아이디")
     private Long id;
 
-    @ApiModelProperty(example = "사용자 아이디")
+    @ApiModelProperty(example = "2001user001", dataType = "string")
     private String userId;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    @ApiModelProperty(example = "2023-01-01")
+    @ApiModelProperty(example = "2023-01-01", dataType = "string")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate maintenanceDate;
 
-    @ApiModelProperty(example = "금액")
+    @ApiModelProperty(example = "5000", dataType = "string")
     private Long price;
 
-    @ApiModelProperty(example = "정비소")
+    @ApiModelProperty(example = "만만카센타", dataType = "string")
     private String maintenanceShop;
 
-    @ApiModelProperty(example = "정비 내용")
+    @ApiModelProperty(example = "정비 내용을 입력해주세요", dataType = "string")
     private String maintenanceHistory;
 
-    @ApiModelProperty(example = "비고")
+    @ApiModelProperty(example = "비고", dataType = "string")
     private String extra;
 
-    @JsonFormat(pattern = "yyyy:MM:dd HH:mm:ss", timezone = "Asia/Seoul")
+    @ApiModelProperty(example = "2023-01-01", dataType = "string")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+    @Schema(example = "2021-01-11", type = "string")
     private Date createdAt;
 
-    @ApiModelProperty(example = "N")
+    @ApiModelProperty(example = "N", dataType = "string")
     private Character delYn;
 
     @QueryProjection
