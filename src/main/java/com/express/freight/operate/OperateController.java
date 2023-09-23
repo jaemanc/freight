@@ -3,6 +3,7 @@ package com.express.freight.operate;
 import com.express.freight.common.dto.PagingDto;
 import com.express.freight.operate.dto.OperateDto;
 import com.express.freight.user.UserService;
+import com.express.freight.util.DataChkUtil;
 import com.express.freight.util.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -61,6 +62,9 @@ public class OperateController {
             Pageable pageable = PageRequest.of(page-1, size);
 
             PagingDto<OperateDto> operateDtoList = operateService.getOperateList(userId, pageable, date);
+            if (DataChkUtil.isEmpty(operateDtoList)) {
+                return ResponseEntity.noContent().build();
+            }
 
             return ResponseEntity.ok(operateDtoList);
         } catch (Exception e) {

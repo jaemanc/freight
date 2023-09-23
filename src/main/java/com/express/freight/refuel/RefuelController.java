@@ -2,6 +2,7 @@ package com.express.freight.refuel;
 
 import com.express.freight.common.dto.PagingDto;
 import com.express.freight.refuel.dto.RefuelDto;
+import com.express.freight.util.DataChkUtil;
 import com.express.freight.util.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -53,6 +54,9 @@ public class RefuelController {
             String userId = JWTUtil.getUserId(request.getHeader("Authorization"));
             Pageable pageable = PageRequest.of(page-1, size);
             PagingDto<RefuelDto> pagingDto = refuelService.getRefuelList(userId, pageable, date);
+            if (DataChkUtil.isEmpty(pagingDto)) {
+                return ResponseEntity.noContent().build();
+            }
             return ResponseEntity.ok(pagingDto);
         } catch (Exception e) {
             e.printStackTrace();

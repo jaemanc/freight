@@ -3,6 +3,7 @@ package com.express.freight.spend;
 import com.express.freight.common.dto.PagingDto;
 import com.express.freight.operate.dto.OperateDto;
 import com.express.freight.spend.dto.SpendDto;
+import com.express.freight.util.DataChkUtil;
 import com.express.freight.util.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -59,6 +60,9 @@ public class SpendController {
             String userId = JWTUtil.getUserId(request.getHeader("Authorization"));
             Pageable pageable = PageRequest.of(page-1, size);
             PagingDto<SpendDto> spendDtoList = spendService.getSpendList(userId,pageable,date);
+            if (DataChkUtil.isEmpty(spendDtoList)) {
+                return ResponseEntity.noContent().build();
+            }
 
             return ResponseEntity.ok(spendDtoList);
         } catch (Exception e) {

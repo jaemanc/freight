@@ -63,10 +63,12 @@ java 11 / spring boot 2.7.16 / SQLite 3 / queryDsl / Docker / Oracle Cloud / git
 * 로그인 관련 - 최대한 리소스 적게 사용
   * 회원
     * ID / 이름 / 연락처 / 이메일(필수X)  <- JWT 값 사용.
+    * 회원 가입 외에 기존 회원일 경우 id ( JWT ) 리턴 하도록 로직 수정 필요.
   * 비회원
     * 최초 접속 시, 유저 아이디 UUID 생성하여 ID 값으로 사용 <- 어플 삭제 혹은, JWT 잃어버릴 경우 복구 불가.
   * 인가
     * 인터셉터 - JWT + secret_key / user_id 값으로 검증
+
 
 * 삭제 API
   * 하드 말고 소프트 딜리트로 처리 하도록 수정 필요 ( 정비 카테고리 )

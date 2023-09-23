@@ -3,6 +3,7 @@ package com.express.freight.maintenance;
 import com.express.freight.common.dto.PagingDto;
 import com.express.freight.maintenance.dto.MaintenanceDto;
 import com.express.freight.user.UserService;
+import com.express.freight.util.DataChkUtil;
 import com.express.freight.util.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -69,13 +70,15 @@ public class MaintenanceController {
 
             PagingDto<MaintenanceDto> maintenanceList = maintenanceService.getMaintenanceList(userId, pageable, date);
 
+            if (DataChkUtil.isEmpty(maintenanceList)) {
+                return ResponseEntity.noContent().build();
+            }
             return ResponseEntity.ok(maintenanceList);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(500).build();
         }
     }
-
 
     // 상세
     @Tag(name="Maintenance")
