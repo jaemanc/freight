@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -33,14 +34,14 @@ public class UserDto {
     @ApiModelProperty(example = "기타 특이 사항 : 피부가 많이 까맣다.", dataType = "string")
     private String extra;
 
-    @ApiModelProperty(example = "2023-01-01", dataType = "string")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     @Schema(example = "2021-01-11", type = "string")
-    private LocalDate createdAt;
+    @ApiModelProperty(example = "2021-01-11",dataType = "string")
+    private Date createdAt;
 
     @Builder
     @QueryProjection
-    public UserDto(String userId, String name, String contact, String email, String extra, LocalDate createdAt) {
+    public UserDto(String userId, String name, String contact, String email, String extra, Date createdAt) {
         this.userId = userId;
         this.name = name;
         this.contact = contact;

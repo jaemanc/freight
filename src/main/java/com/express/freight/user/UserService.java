@@ -2,11 +2,17 @@ package com.express.freight.user;
 
 import com.express.freight.user.dto.UserDto;
 import com.express.freight.user.dto.UserEntity;
+import com.express.freight.user.dto.UserLoginDto;
 import com.express.freight.user.mapper.UserMapper;
 import com.express.freight.user.mapper.UserRepository;
 import com.express.freight.user.mapper.UserRepositoryCustom;
+import com.express.freight.util.JWTUtil;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -54,6 +60,17 @@ public class UserService {
 
         return userRepository.existsUserEntityByUserId(userId);
     }
+
+    public boolean isValidUser(UserLoginDto userLoginDto) throws Exception {
+        String userName = JWTUtil.getUserName(userLoginDto.getJwt());
+        String userId = JWTUtil.getUserId(userLoginDto.getJwt());
+
+        if (userRepository.existsUserEntityByUserIdAndName(userId, userName)) {
+            return true;
+        }
+        return false;
+    }
+
 
 
 }

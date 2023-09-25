@@ -17,7 +17,7 @@ public class JWTUtil {
 
     // 10년
     private static Long tokenValidTime = 10*365*24*60*60*1000L;
-    private static String secretKey = "son_of_iksan";
+    private static final String secretKey = "son_of_iksan";
     public String createToken(UserDto userDto) {
         Claims claims = Jwts.claims().setSubject(userDto.getUserId()); // JWT payload 에 저장되는 정보단위
         // claims.put("roles", roles); // 정보는 key / value 쌍으로 저장된다.
@@ -41,20 +41,39 @@ public class JWTUtil {
 
     // 토큰에서 회원 아이디 추출
     public static String getUserId(String token) {
-        return Jwts.parser().setSigningKey(Base64.getEncoder().encodeToString(secretKey.getBytes())).parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parser()
+                .setSigningKey(Base64.getEncoder()
+                        .encodeToString(secretKey.getBytes()))
+                            .parseClaimsJws(token)
+                            .getBody()
+                            .get("user_id",String.class);
     }
 
     // name
-    public static String getUserName(String token) {
-        Object name = Jwts.parser().setSigningKey(Base64.getEncoder().encodeToString(secretKey.getBytes())).parseClaimsJws(token).getBody().get("name");
-        String userName = String.valueOf(name);
-        return userName;
+    public static String getUserName(String token) throws Exception{
+
+        String tokenVal = token.toString();
+
+        System.out.println(" token value : " + tokenVal);
+
+        String result = Jwts.parser()
+                .setSigningKey(Base64.getEncoder()
+                        .encodeToString(secretKey.getBytes()))
+                            .parseClaimsJws(tokenVal)
+                            .getBody()
+                            .get("name", String.class);
+        return result;
+
     }
     // contact
-    public static String getUserContact(String token) {
-        Object id = Jwts.parser().setSigningKey(Base64.getEncoder().encodeToString(secretKey.getBytes())).parseClaimsJws(token).getBody().get("contact");
-        String userContact = String.valueOf(id);
-        return userContact;
+    public static String getUserContact(String token) throws Exception{
+        String result = Jwts.parser()
+                .setSigningKey(Base64.getEncoder()
+                        .encodeToString(secretKey.getBytes()))
+                .parseClaimsJws(token)
+                .getBody()
+                .get("contact",String.class);
+        return result;
     }
 
     // 토큰의 유효성 검증
