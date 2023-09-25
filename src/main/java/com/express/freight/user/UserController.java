@@ -1,11 +1,14 @@
 package com.express.freight.user;
 
 import com.express.freight.user.dto.UserDto;
+import com.express.freight.user.dto.UserLoginDto;
 import com.express.freight.util.JWTUtil;
+import com.mysql.cj.util.StringUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.mapstruct.ap.shaded.freemarker.template.utility.StringUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value = "/api/v1/user")
@@ -28,6 +33,33 @@ public class UserController {
     }
     JWTUtil jwtUtil = new JWTUtil();
 
+    @Tag(name="User")
+    @Operation(summary = "Log in to a previously subscribed member AND api for device change users ")
+    @PostMapping("/login")
+    public ResponseEntity<?> userLogin(
+            @RequestBody UserLoginDto userLoginDto,
+            HttpServletRequest request
+    ){
+        try{
+
+            if (ObjectUtils.isEmpty(userLoginDto) || StringUtils.isNullOrEmpty(request.getHeader("Authorization"))){
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+
+            userLoginDto.setJwt(request.getHeader("Authorization"));
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.add("Authorization",request.getHeader("Authorization"));
+
+            if (!userService.isValidUser(userLoginDto)) {
+                return new ResponseEntity<>(null, httpHeaders, HttpStatus.UNAUTHORIZED);
+            }
+
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @Tag(name="User")
     @Operation(summary = "user register & login", description = "회원 가입 및 로그인")

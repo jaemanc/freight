@@ -23,18 +23,19 @@ public class Interceptor implements HandlerInterceptor {
 
         String jwt = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-        System.out.println("PREHANDLE : " + jwt);
-
         if (StringUtils.isEmpty(jwt)) {
             System.out.println("The value of jwt in the request header is null... ");
 
-            throw new IllegalAccessException(" jwt value cannot be null!!!");
+            response.sendRedirect("/error/400");
+            return false;
         }
 
         String userId = JWTUtil.getUserId(jwt);
 
         if (!userService.isUser(userId)) {
             System.out.println(" User Not found!!! USER_ID : " + userId);
+
+            response.sendRedirect("/error/404");
             return false;
         }
 
