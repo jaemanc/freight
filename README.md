@@ -59,22 +59,24 @@ java 11 / spring boot 2.7.16 / SQLite 3 / queryDsl / Docker / Oracle Cloud / git
 2. log backup - rolling + 1 month
 3. db backup - sqlite3 + backup??
 4. ERROR - email alert
+5. JWT secret_key -> github variables 또는 실행 환경 변수 등으로 처리.
 
 * 로그인 관련 - 최대한 리소스 적게 사용
-  * 회원
-    * ID / 이름 / 연락처 / 이메일(필수X)  <- JWT 값 사용.
-    * 회원 가입 외에 기존 회원일 경우 id ( JWT ) 리턴 하도록 로직 수정 필요.
-  * 비회원
-    * 최초 접속 시, 유저 아이디 UUID 생성하여 ID 값으로 사용 <- 어플 삭제 혹은, JWT 잃어버릴 경우 복구 불가.
-  * 인가
-    * 인터셉터 - JWT + secret_key / user_id 값으로 검증
+  * ~~회원~~
+    * ~~ID / 이름 / 연락처 / 이메일(필수X)  <- JWT 값 사용.~~
+    * ~~회원 가입 외에 기존 회원일 경우 id ( JWT ) 리턴 하도록 로직 수정 필요.~~
+  * ~~비회원~~
+    * ~~최초 접속 시, 유저 아이디 UUID 생성하여 ID 값으로 사용 <- 어플 삭제 혹은, JWT 잃어버릴 경우 복구 불가.~~
+  * ~~인가~~
+    * ~~인터셉터 - JWT + secret_key / user_id 값으로 검증~~
 
 
-* 삭제 API
-  * 하드 말고 소프트 딜리트로 처리 하도록 수정 필요 ( 정비 카테고리 )
+* ~~삭제 API~~
+  * ~~하드 말고 소프트 딜리트로 처리 하도록 수정 필요 ( 정비 카테고리 )~~
 
 ### 기획
 
 * 조회 페이지 버튼 아이콘으로 대체 가능한 경우 대체 할 것.
 * 상세 페이지 / 수정 / 삭제 페이지 기획 설계 필요.
 * 참고 UI : https://github.com/ArizArmeidi/FlutterWeather
+* 기존 회원 기기 변경 또는 로그인 화면 설계.

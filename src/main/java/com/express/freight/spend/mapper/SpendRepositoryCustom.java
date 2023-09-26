@@ -58,7 +58,17 @@ public class SpendRepositoryCustom {
                 )
                 .fetchOne();
 
-        return new PagingDto<>(spendDtoList, totalCount);
+        Long totalMount = queryFactory
+                .select(qSpendEntity.price.sum())
+                .from (qSpendEntity)
+                .where(
+                        qSpendEntity.userId.eq(userId)
+                                .and(qSpendEntity.paymentDate.between(firstDayOfMonth,lastDayOfMonth))
+                                .and(qSpendEntity.delYn.eq('N'))
+                )
+                .fetchOne();
+
+        return new PagingDto<>(spendDtoList, totalCount, totalMount);
 
     }
 
