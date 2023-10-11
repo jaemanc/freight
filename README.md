@@ -52,6 +52,7 @@ java 11 / spring boot 2.7.16 / SQLite 3 / queryDsl / Docker / Oracle Cloud / git
 4. Flutter 설정
 5. API 명세 - Swagger 사용
 6. 구글 플레이 스토어??
+7. 확장 - 카테고리 또는 검색(특정 키워드로 통합 검색?) / 검색 엔진(elasticsearch) / redis cache 사용여부 등.
 
 ### CODE LEVEL
 
