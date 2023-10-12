@@ -30,15 +30,12 @@ public class CommonRepositoryCustom {
 
 
     public <T> PagingDto<T> getExcelData(String userId, String category, String date, Class<T> dtoClass) throws Exception{
-        //DateTimeFormatter YearMonthformatter = DateTimeFormatter.ofPattern("yyyy-MM");
         DateTimeFormatter YearMonthformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         LocalDate firstDayOfYearMonth = null;
         LocalDate lastDayOfYearMonth = null;
 
         Category dateFormatCategory = DateChkUtil.dateFormatChecker(date);
-
-
 
         if (dateFormatCategory.equals(Category.YEAR)) {
             firstDayOfYearMonth = LocalDate.parse(String.format("%d-01-01",Integer.parseInt(date)));
@@ -137,7 +134,7 @@ public class CommonRepositoryCustom {
                                         .and(qRefuelEntity.refuelingDate.between(firstDayOfYearMonth, lastDayOfYearMonth))
                                         .and(qRefuelEntity.userId.eq(userId))
                         )
-                        .orderBy(qRefuelEntity.refuelingDate.asc())
+                        .orderBy(qRefuelEntity.refuelingDate.desc())
                         .fetch();
                 return new PagingDto<>(refuelDtoList,0L,0L);
 

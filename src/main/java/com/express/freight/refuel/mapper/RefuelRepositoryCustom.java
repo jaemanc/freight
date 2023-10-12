@@ -42,7 +42,7 @@ public class RefuelRepositoryCustom {
                         .and(qRefuelEntity.refuelingDate.between(firstDayOfMonth, lastDayOfMonth))
                         .and(qRefuelEntity.userId.eq(userId))
                 )
-                .orderBy(qRefuelEntity.refuelingDate.asc())
+                .orderBy(qRefuelEntity.refuelingDate.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
