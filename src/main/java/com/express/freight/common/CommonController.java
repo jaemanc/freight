@@ -78,7 +78,7 @@ public class CommonController {
             )
     })
     @GetMapping("/{category}/{date}/excel")
-    public ResponseEntity<PagingDto> getExcelData(
+    public ResponseEntity<PagingDto<?>> getExcelData(
         HttpServletRequest request,
         @PathVariable String category,
         @PathVariable String date
@@ -94,7 +94,7 @@ public class CommonController {
             PagingDto<?> result = commonService.getExcelData(userId, _category.label(), date.trim());
 
             return ResponseEntity.ok(result);
-        } catch (IllegalArgumentException t) {  // "EX) category : [\"operate\",\"spend\",\"maintenance\",\"refuel\"] "
+        } catch (IllegalArgumentException t) {
             t.printStackTrace();
             return ResponseEntity.badRequest().body(new PagingDto<>(new ArrayList<>(), 0L, 0L));
 
