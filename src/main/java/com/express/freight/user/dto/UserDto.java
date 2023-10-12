@@ -22,10 +22,10 @@ public class UserDto {
     @ApiModelProperty(example = "2001user001", dataType = "string")
     private String userId;
 
-    @ApiModelProperty(example = "김준영의 발톱을 먹고 태어난 시골쥐", dataType = "string")
+    @ApiModelProperty(example = "김준밥의 발톱을 먹고 태어난 시골쥐", dataType = "string")
     private String name;
 
-    @ApiModelProperty(example = "010-4157-8829", dataType = "string")
+    @ApiModelProperty(example = "010-1233-3333", dataType = "string")
     private String contact;
 
     @ApiModelProperty(example = "asdf@gmail.com", dataType = "string")

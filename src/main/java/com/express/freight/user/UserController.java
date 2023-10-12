@@ -40,7 +40,7 @@ public class UserController {
             @RequestBody UserLoginDto userLoginDto,
             HttpServletRequest request
     ){
-        try{
+        try {
 
             if (ObjectUtils.isEmpty(userLoginDto) || StringUtils.isNullOrEmpty(request.getHeader("Authorization"))){
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -70,6 +70,10 @@ public class UserController {
         try {
             if (ObjectUtils.isEmpty(userDto)){
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            // 동일 아이디 중복 체크
+            if (userService.checkDuplicateUser(userDto)) {
+                return new ResponseEntity<UserDto>(userDto,  new HttpHeaders(), HttpStatus.CONFLICT);
             }
 
             userDto = userService.userRegist(userDto);

@@ -71,6 +71,8 @@ public class UserService {
         return false;
     }
 
-
+    public boolean checkDuplicateUser(UserDto userDto) throws Exception {
+        return userRepository.existsUserByUserIdOrEmailOrContact(userDto.getUserId(), userDto.getEmail(), userDto.getContact());
+    }
 
 }
