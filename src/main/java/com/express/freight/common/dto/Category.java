@@ -6,11 +6,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public enum Category {
-    OPERATE("operate"),
-    SPEND("spend"),
-    MAINTENANCE("maintenance"),
-    REFUEL("refuel");
-
+    OPERATE("OPERATE"),
+    SPEND("SPEND"),
+    MAINTENANCE("MAINTENANCE"),
+    REFUEL("REFUEL"),
+    YEAR("YEAR"),
+    YEAR_MONTH("YEAR_MONTH");
     private final String label;
 
     Category(String label) {
