@@ -2,26 +2,21 @@ package com.express.freight.common;
 
 import com.express.freight.common.dto.Category;
 import com.express.freight.common.dto.PagingDto;
-import com.express.freight.maintenance.dto.MaintenanceDto;
-import com.express.freight.util.DataChkUtil;
+import com.express.freight.user.UserService;
 import com.express.freight.util.JWTUtil;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiParam;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 @RestController
@@ -29,6 +24,13 @@ import java.util.ArrayList;
 @Tag(name="Maintenance", description = "정비 API")
 public class CommonController {
 
+    private final CommonService commonService;
+    private final UserService userService;
+
+    public CommonController(CommonService commonService, UserService userService) {
+        this.commonService = commonService;
+        this.userService = userService;
+    }
 
     @Tag(name="Search")
     @Operation(summary = "Search all Data", description = "통합 검색")
@@ -82,14 +84,16 @@ public class CommonController {
         @PathVariable String date
     ) {
         try {
-            /*Todo
-            월별 혹은 연도 별 엑셀용 데이터 조회.
-            */
-            System.out.println("category : " + category + " date : " + date);
-            Category cate = Category.find(category);
-            System.out.println(cate.toString() + " / " + cate.label());
+            Category _category = Category.find(category.trim().toUpperCase());
 
-            return ResponseEntity.ok().build();
+            String userId = JWTUtil.getUserId(request.getHeader("Authorization"));
+
+            if (!userService.isUser(userId))
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+
+            PagingDto<?> result = commonService.getExcelData(userId, _category.label(), date.trim());
+
+            return ResponseEntity.ok(result);
         } catch (IllegalArgumentException t) {  // "EX) category : [\"operate\",\"spend\",\"maintenance\",\"refuel\"] "
             t.printStackTrace();
             return ResponseEntity.badRequest().body(new PagingDto<>(new ArrayList<>(), 0L, 0L));
