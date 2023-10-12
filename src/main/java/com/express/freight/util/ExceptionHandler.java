@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class ExceptionHandler {
@@ -18,8 +20,10 @@ public class ExceptionHandler {
     public ResponseEntity<?> return400(
             HttpServletRequest request
     ){
-        System.out.println("ERROR !!!! 400 ");
-        return new ResponseEntity<>("not found jwt",null, HttpStatus.BAD_REQUEST);
+        Map<String, String> responseMap = new HashMap<>();
+        responseMap.put("msg", "not found jwt");
+
+        return ResponseEntity.badRequest().body(responseMap);
     }
 
     @GetMapping("/error/401")
