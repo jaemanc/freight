@@ -27,7 +27,8 @@ java 11 / spring boot 2.7.16 / SQLite 3 / queryDsl / Docker / Oracle Cloud / git
 
 <p>https://www.figma.com/file/lTP6m8WSy81wB259tlq3ur/Untitled?type=design&node-id=0-1&mode=design&t=1rLLjXEDQpL4r6zi-0</p>
 
-<img width="95%" alt="image" src="https://github.com/jaemanc/freight/assets/104718153/ebab3467-2ae7-4d4f-a55a-df7e37d15baa">
+<img width="95%" alt="image" src="https://github.com/jaemanc/freight/assets/104718153/f9faae15-d648-4c9b-a313-84643045b35a">
+<img width="95%" alt="image" src="https://github.com/jaemanc/freight/assets/104718153/fab9e8a6-5800-40a0-b135-be6b3de047e7">
 
 ### 일지 목록 등 참고용 이미지들
 <p align="center">
