@@ -25,6 +25,8 @@ java 11 / spring boot 2.7.16 / SQLite 3 / queryDsl / Docker / Oracle Cloud / git
 
 ## 운행 일지 mockup
 
+<p>https://www.figma.com/file/lTP6m8WSy81wB259tlq3ur/Untitled?type=design&node-id=0-1&mode=design&t=1rLLjXEDQpL4r6zi-0</p>
+
 <img width="95%" alt="image" src="https://github.com/jaemanc/freight/assets/104718153/ebab3467-2ae7-4d4f-a55a-df7e37d15baa">
 
 ### 일지 목록 등 참고용 이미지들
