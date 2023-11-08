@@ -13,10 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -81,7 +78,7 @@ public class UserController {
 
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.add("Authorization", jwt);
-            return new ResponseEntity<UserDto>(userDto, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<UserDto>(userDto, httpHeaders, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -109,5 +106,28 @@ public class UserController {
 
 
     }
+
+//    @Tag(name="User")
+//    @Operation(summary = "Update User Info ", description = "사용자 정보 수정")
+//    @PutMapping("/{user_id}")
+//    public ResponseEntity<UserDto> patchUser(
+//            @PathVariable String user_id
+//            ,@RequestBody UserDto userDto
+//    ){
+//        try {
+//            userService.isUser(user_id);
+//
+//            String jwt = jwtUtil.createToken(userDto);
+//
+//            HttpHeaders httpHeaders = new HttpHeaders();
+//            httpHeaders.add("Authorization", jwt);
+//
+//            return new ResponseEntity<UserDto>(userDto, httpHeaders, HttpStatus.OK);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//
+//    }
 
 }

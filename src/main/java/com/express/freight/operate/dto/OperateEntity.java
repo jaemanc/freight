@@ -1,6 +1,7 @@
 package com.express.freight.operate.dto;
 
 
+import com.express.freight.user.dto.UserEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
@@ -83,6 +84,10 @@ public class OperateEntity {
     @ApiModelProperty(example = "N")
     @Setter
     private Character delYn;
+
+//    @ManyToOne
+//    @JoinColumn(name="user_id", referencedColumnName = "user_id")
+//    private UserEntity userEntity;
 
     public OperateEntity(Long id, String userId, LocalDate loadingDate, String loadingPlace, LocalDate unloadingDate, String unloadingPlace, Long loadingRatio, Long transportationCosts, LocalDate transportationDate, String transportationType, Long unitCost, Date createdAt, Character delYn) {
         this.id = id;
