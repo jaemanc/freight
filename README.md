@@ -71,6 +71,8 @@ java 11 / spring boot 2.7.16 / SQLite 3 / queryDsl / Docker / Oracle Cloud / git
     * ~~최초 접속 시, 유저 아이디 UUID 생성하여 ID 값으로 사용 <- 어플 삭제 혹은, JWT 잃어버릴 경우 복구 불가.~~
   * ~~인가~~
     * ~~인터셉터 - JWT + secret_key / user_id 값으로 검증~~
+  * 등록
+    * 리턴 값 상세히 조정 필요.
 
 
 * ~~삭제 API~~
