@@ -40,7 +40,7 @@ public class JWTUtil {
     }
 
     // 토큰에서 회원 아이디 추출
-    public static String getUserId(String token) {
+    public static String getUserId(String token) throws Exception{
         return Jwts.parser()
                 .setSigningKey(Base64.getEncoder()
                         .encodeToString(secretKey.getBytes()))

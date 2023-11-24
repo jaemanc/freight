@@ -30,12 +30,21 @@ public class Interceptor implements HandlerInterceptor {
             return false;
         }
 
-        String userId = JWTUtil.getUserId(jwt);
+        String userId = "";
+
+        try {
+            userId = JWTUtil.getUserId(jwt);
+        } catch (Exception e) {
+            System.out.println("jwt parse error ");
+            response.sendRedirect("/error/400");
+            e.printStackTrace();
+            return false;
+        }
 
         if (!userService.isUser(userId)) {
             System.out.println(" User Not found!!! USER_ID : " + userId);
 
-            response.sendRedirect("/error/404");
+            response.sendRedirect("/error/401");
             return false;
         }
 
