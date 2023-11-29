@@ -63,11 +63,15 @@ public class UserService {
 
     public boolean isValidUser(UserLoginDto userLoginDto) throws Exception {
         String userName = JWTUtil.getUserName(userLoginDto.getJwt());
-        String userId = JWTUtil.getUserId(userLoginDto.getJwt());
 
-        if (userRepository.existsUserEntityByUserIdAndName(userId, userName)) {
+        if (!userName.equals(userLoginDto.getName())) {
+            return false;
+        }
+
+        if (userRepository.existsUserEntityByNameAndEmail(userName, userLoginDto.getEmail())) {
             return true;
         }
+
         return false;
     }
 
