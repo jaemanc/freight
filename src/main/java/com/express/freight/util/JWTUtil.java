@@ -62,6 +62,7 @@ public class JWTUtil {
                             .parseClaimsJws(tokenVal)
                             .getBody()
                             .get("name", String.class);
+        System.out.println("tkn : " + tokenVal + "\r\n name : " + result);
         return result;
 
     }
