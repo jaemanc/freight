@@ -1,4 +1,4 @@
-package com.express.freight.user.dto;
+package com.express.freight.common.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
@@ -7,35 +7,36 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.redis.core.RedisHash;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
 @Getter
 @NoArgsConstructor
-@Table(name="TB_USER")
 @DynamicUpdate
 @DynamicInsert
 @EntityListeners(AuditingEntityListener.class)
-public class UserEntity implements Persistable<String> {
+@RedisHash(value = "user")
+public class RedisEntity implements  Persistable<String>{
 
     @Id
-    @Column(name="user_id")
     @ApiModelProperty(example = "사용자 아이디")
     private String userId;
 
-    // select - insert 방지
+    @Nullable
     @Override
     public String getId() {
-        return userId;
+        return null;
     }
+
     @Override
     public boolean isNew() {
-        return true;
+        return false;
     }
 
     @Column(name="name")
@@ -59,7 +60,7 @@ public class UserEntity implements Persistable<String> {
     private Date createdAt;
 
     @Builder
-    public UserEntity(String userId, String name, String contact, String email, String extra) {
+    public RedisEntity(String userId, String name, String contact, String email, String extra) {
         this.userId = userId;
         this.name = name;
         this.contact = contact;
