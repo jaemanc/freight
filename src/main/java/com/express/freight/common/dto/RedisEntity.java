@@ -22,22 +22,11 @@ import java.util.Date;
 @DynamicInsert
 @EntityListeners(AuditingEntityListener.class)
 @RedisHash(value = "user")
-public class RedisEntity implements  Persistable<String>{
+public class RedisEntity {
 
     @Id
     @ApiModelProperty(example = "사용자 아이디")
     private String userId;
-
-    @Nullable
-    @Override
-    public String getId() {
-        return null;
-    }
-
-    @Override
-    public boolean isNew() {
-        return false;
-    }
 
     @Column(name="name")
     @ApiModelProperty(example = "이름")
