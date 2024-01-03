@@ -2,8 +2,11 @@ package com.express.freight.common;
 
 import com.express.freight.common.dto.Category;
 import com.express.freight.common.dto.PagingDto;
+import com.express.freight.common.dto.RedisEntity;
+import com.express.freight.common.mapper.UserRedisRepository;
 import com.express.freight.user.UserService;
 import com.express.freight.util.JWTUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,27 +15,34 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/v1/common")
-@Tag(name="Maintenance", description = "정비 API")
+@Tag(name="Common", description = "정비 API")
 public class CommonController {
 
     private final CommonService commonService;
     private final UserService userService;
+    private final UserRedisRepository userRedisRepository;
 
-    public CommonController(CommonService commonService, UserService userService) {
+    public CommonController(CommonService commonService, UserService userService, UserRedisRepository userRedisRepository) {
         this.commonService = commonService;
         this.userService = userService;
+        this.userRedisRepository = userRedisRepository;
     }
 
-    @Tag(name="Search")
+    private final Logger log_app = LogManager.getLogger("com.applog");
+
+    @Tag(name="Common")
     @Operation(summary = "Search all Data", description = "통합 검색")
     @GetMapping("/{searchword}")
     public ResponseEntity<PagingDto<?>> getIntegratedSearch(
@@ -51,7 +61,7 @@ public class CommonController {
         }
     }
 
-    @Tag(name="Excel")
+    @Tag(name="Common")
     @Operation(summary = "Excel data", description = " 엑셀 데이터 조회")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "성공 요청",
@@ -103,5 +113,42 @@ public class CommonController {
             return ResponseEntity.status(500).build();
         }
     }
+
+    @Tag(name="Redis Test")
+    @Operation(summary = "Redis Test API", description = "Redis Test")
+    @GetMapping("/redis-test")
+    public ResponseEntity<?> redisTestApi(
+            HttpServletRequest request
+    ){
+        try {
+            RedisEntity redisEntity = RedisEntity.builder()
+                    .userId("userTestId1")
+                    .email("emial")
+                    .name("name22")
+                    .extra("extra11")
+                    .contact("contact!")
+                    .build();
+
+            userRedisRepository.save(redisEntity);
+
+            Optional<RedisEntity> getEntity = userRedisRepository.findById("userTestId1");
+
+            RedisEntity temp = getEntity.get();
+
+            log_app.info(new ObjectMapper().writeValueAsString(temp));
+
+            userRedisRepository.count();
+
+            userRedisRepository.delete(redisEntity);
+
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+
 
 }
